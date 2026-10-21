@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "dev-digest-ai-marketplace",
+  "description": "Team harness for spec-driven AI engineering: shared engineering practices, read-only research, independent architecture review and the SDD workflow.",
+  "owner": { "name": "AI Engineering", "url": "https://github.com/YuraMaksymiv" },
+  "plugins": [
+    {
+      "name": "engineering-paved-path",
+      "source": "./plugins/engineering-paved-path",
+      "description": "Shared engineering practices as reference skills: architecture, TypeScript, React, Next.js, Fastify, Drizzle, PostgreSQL, Zod, testing, security and Mermaid.",
+      "category": "engineering-practices"
+    },
+    {
+      "name": "research-tools",
+      "source": "./plugins/research-tools",
+      "description": "Generic read-only researcher agent for repository and external research with cited evidence.",
+      "category": "research"
+    },
+    {
+      "name": "architecture-review",
+      "source": "./plugins/architecture-review",
+      "description": "Independent, read-only architecture-boundary reviewer driven by the repository's own architecture docs.",
+      "category": "code-review"
+    },
+    {
+      "name": "sdd-engineering",
+      "source": "./plugins/sdd-engineering",
+      "description": "Spec-Driven Development workflow: spec → plan → implement → verify, with an independent architecture gate.",
+      "category": "workflow"
+    }
+  ]
+}

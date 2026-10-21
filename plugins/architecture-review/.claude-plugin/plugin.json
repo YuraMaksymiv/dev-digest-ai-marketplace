@@ -1,0 +1,14 @@
+{
+  "name": "architecture-review",
+  "displayName": "Architecture Review",
+  "version": "1.0.0",
+  "description": "Independent, read-only architecture-boundary reviewer. Reads the repository's own architecture docs and checker config, falls back to the engineering-paved-path architecture skill, runs the documented checker (never its baseline command) and reports cited findings.",
+  "author": { "name": "AI Engineering" },
+  "homepage": "https://yuramaksymiv.github.io/dev-digest-ai-marketplace/#/plugin/architecture-review",
+  "repository": "https://github.com/YuraMaksymiv/dev-digest-ai-marketplace",
+  "license": "MIT",
+  "keywords": ["architecture", "code-review", "layering", "dependency-direction", "read-only", "agent"],
+  "dependencies": [
+    { "name": "engineering-paved-path", "version": "^1.0.0" }
+  ]
+}

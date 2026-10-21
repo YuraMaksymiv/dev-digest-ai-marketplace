@@ -1,0 +1,16 @@
+{
+  "name": "sdd-engineering",
+  "displayName": "SDD Engineering",
+  "version": "1.0.0",
+  "description": "Spec-Driven Development workflow: spec-creator writes an EARS spec, implementation-planner turns it into an AC-traced plan, /run-plan drives implementer, test-runner, plan-verifier and an independent architecture gate; engineering-insights keeps per-module memory; workflow-retro analyses a finished run on request.",
+  "author": { "name": "AI Engineering" },
+  "homepage": "https://yuramaksymiv.github.io/dev-digest-ai-marketplace/#/plugin/sdd-engineering",
+  "repository": "https://github.com/YuraMaksymiv/dev-digest-ai-marketplace",
+  "license": "MIT",
+  "keywords": ["spec-driven-development", "sdd", "workflow", "spec", "plan", "acceptance-criteria", "ears", "multi-agent"],
+  "dependencies": [
+    { "name": "engineering-paved-path", "version": "^1.0.0" },
+    { "name": "research-tools", "version": "^1.0.0" },
+    { "name": "architecture-review", "version": "^1.0.0" }
+  ]
+}

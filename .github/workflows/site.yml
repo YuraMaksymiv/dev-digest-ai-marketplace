@@ -1,0 +1,39 @@
+name: Site
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build-site:
+    name: build-site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Build catalog index
+        run: node scripts/build-index.mjs
+
+      - name: Install site dependencies
+        working-directory: site
+        run: npm ci
+
+      - name: Typecheck
+        working-directory: site
+        run: npm run typecheck
+
+      - name: Build
+        working-directory: site
+        run: npm run build

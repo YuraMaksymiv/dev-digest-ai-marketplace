@@ -1,0 +1,32 @@
+{
+  "name": "dev-digest-ai-marketplace-site",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "index": "node ../scripts/build-index.mjs",
+    "predev": "npm run index",
+    "dev": "vite",
+    "prebuild": "npm run index",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dompurify": "3.4.16",
+    "marked": "16.4.2",
+    "minisearch": "7.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.31",
+    "@types/react-dom": "18.3.7",
+    "@vitejs/plugin-react": "5.1.4",
+    "typescript": "5.9.3",
+    "vite": "7.3.7"
+  }
+}

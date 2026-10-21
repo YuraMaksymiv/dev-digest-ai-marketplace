@@ -1,0 +1,15 @@
+# Default owners for everything in the marketplace.
+*                                   @YuraMaksymiv
+
+# Plugin owners. Replace with team handles (e.g. @org/platform-team) when teams exist.
+/plugins/engineering-paved-path/    @YuraMaksymiv
+/plugins/research-tools/            @YuraMaksymiv
+/plugins/architecture-review/       @YuraMaksymiv
+/plugins/sdd-engineering/           @YuraMaksymiv
+
+# Release machinery and the catalog.
+/.claude-plugin/                    @YuraMaksymiv
+/channels/                          @YuraMaksymiv
+/.github/                           @YuraMaksymiv
+/scripts/                           @YuraMaksymiv
+/site/                              @YuraMaksymiv

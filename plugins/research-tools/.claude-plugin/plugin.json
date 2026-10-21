@@ -1,0 +1,11 @@
+{
+  "name": "research-tools",
+  "displayName": "Research Tools",
+  "version": "1.0.0",
+  "description": "A generic read-only researcher agent: answers one concrete question from the repository (code, docs, git history) or external sources (official docs, standards) and returns a cited findings report with open gaps.",
+  "author": { "name": "AI Engineering" },
+  "homepage": "https://yuramaksymiv.github.io/dev-digest-ai-marketplace/#/plugin/research-tools",
+  "repository": "https://github.com/YuraMaksymiv/dev-digest-ai-marketplace",
+  "license": "MIT",
+  "keywords": ["research", "read-only", "agent", "discovery", "evidence"]
+}

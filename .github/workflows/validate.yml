@@ -1,0 +1,88 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      evals:
+        description: "Also run the sdd-engineering smoke evals (uses ANTHROPIC_API_KEY)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  CLAUDE_CODE_VERSION: "2.1.306"
+
+jobs:
+  validate-harness:
+    name: validate-harness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
+      - name: Validate marketplace (latest channel)
+        run: claude plugin validate .
+      - name: Validate stable channel
+        run: claude plugin validate channels/stable/marketplace.json
+      - name: Validate each plugin (strict)
+        run: |
+          for p in plugins/*/; do
+            echo "::group::$p"
+            claude plugin validate "$p" --strict
+            echo "::endgroup::"
+          done
+      - name: Manifest names match marketplace entries
+        run: |
+          node -e '
+            const fs = require("fs");
+            const m = JSON.parse(fs.readFileSync(".claude-plugin/marketplace.json", "utf8"));
+            let bad = 0;
+            for (const e of m.plugins) {
+              const p = JSON.parse(fs.readFileSync(e.source + "/.claude-plugin/plugin.json", "utf8"));
+              if (p.name !== e.name) { console.error(`${e.source}: plugin.json name ${p.name} != entry ${e.name}`); bad++; }
+              if (e.version) { console.error(`${e.name}: version belongs in plugin.json, not marketplace.json`); bad++; }
+            }
+            process.exit(bad ? 1 : 0);'
+      - name: Hygiene (paths, secrets, product leftovers, language, caches)
+        run: bash scripts/check-hygiene.sh
+      - name: Scripts parse
+        run: |
+          for s in scripts/*.sh plugins/*/evals/_fixtures/*.sh; do bash -n "$s"; done
+          node --check scripts/pin-stable.mjs
+          python3 -m py_compile plugins/sdd-engineering/skills/workflow-retro/scripts/retro.py
+
+  evals-smoke:
+    name: evals-smoke
+    needs: validate-harness
+    if: github.event_name == 'workflow_dispatch' && inputs.evals
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Claude Code CLI and sandbox prerequisites
+        run: |
+          npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
+          sudo apt-get update -qq && sudo apt-get install -y -qq bubblewrap socat
+      - name: Run smoke evals
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          claude plugin eval ./plugins --eval-dir sdd-engineering/evals --tag smoke --runs 1 \
+            --scaffold --trust-plugin --allow-tools Write Edit \
+            --max-cost-usd 5 --no-publish --threshold 0.66 \
+            --json evals-smoke.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evals-smoke
+          path: evals-smoke.json

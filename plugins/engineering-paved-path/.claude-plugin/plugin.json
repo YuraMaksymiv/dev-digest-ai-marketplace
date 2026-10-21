@@ -1,0 +1,11 @@
+{
+  "name": "engineering-paved-path",
+  "displayName": "Engineering Paved Path",
+  "version": "1.0.0",
+  "description": "Shared engineering practices as reference skills: architecture layering, TypeScript, React, React Testing Library, Next.js, Fastify, Drizzle ORM, PostgreSQL table design, Zod, web security and Mermaid diagrams. One source of truth that other plugins depend on instead of copying.",
+  "author": { "name": "AI Engineering" },
+  "homepage": "https://yuramaksymiv.github.io/dev-digest-ai-marketplace/#/plugin/engineering-paved-path",
+  "repository": "https://github.com/YuraMaksymiv/dev-digest-ai-marketplace",
+  "license": "MIT",
+  "keywords": ["best-practices", "architecture", "typescript", "react", "nextjs", "fastify", "drizzle", "postgresql", "zod", "testing", "security", "mermaid"]
+}

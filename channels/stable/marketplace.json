@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "dev-digest-ai-marketplace-stable",
+  "description": "Stable channel: every plugin pinned to a released tag and its commit SHA. Used for rollback. Updated only by scripts/pin-stable.mjs.",
+  "owner": { "name": "AI Engineering", "url": "https://github.com/YuraMaksymiv" },
+  "plugins": [
+    {
+      "name": "engineering-paved-path",
+      "source": { "source": "git-subdir", "url": "https://github.com/YuraMaksymiv/dev-digest-ai-marketplace.git", "path": "plugins/engineering-paved-path", "ref": "engineering-paved-path--v1.0.0" }
+    },
+    {
+      "name": "research-tools",
+      "source": { "source": "git-subdir", "url": "https://github.com/YuraMaksymiv/dev-digest-ai-marketplace.git", "path": "plugins/research-tools", "ref": "research-tools--v1.0.0" }
+    },
+    {
+      "name": "architecture-review",
+      "source": { "source": "git-subdir", "url": "https://github.com/YuraMaksymiv/dev-digest-ai-marketplace.git", "path": "plugins/architecture-review", "ref": "architecture-review--v1.0.0" }
+    },
+    {
+      "name": "sdd-engineering",
+      "source": { "source": "git-subdir", "url": "https://github.com/YuraMaksymiv/dev-digest-ai-marketplace.git", "path": "plugins/sdd-engineering", "ref": "sdd-engineering--v1.0.0" }
+    }
+  ]
+}
