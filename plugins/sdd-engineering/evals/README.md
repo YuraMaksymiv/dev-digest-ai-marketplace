@@ -9,8 +9,9 @@ that the workflow stays quiet when it isn't needed.
 | `spec-discovery-asks-questions` | vague request → `spec-creator` pass 1 asks blocking questions, writes nothing | positive |
 | `spec-authoring-ears-no-impl` | answers supplied → `spec-creator` is still dispatched (single pass), writes `specs/due-dates.md` with an EARS unwanted-behaviour row, draft/clarified status, no source code, all six facts covered | positive |
 | `spec-every-requirement-has-ac` | (1.1.0) every mandatory requirement is in §3a and maps to a testable AC/NFR; vague ones ("fast", "user-friendly") get a blocking marker and the spec stays `draft` | positive |
+| `handoff-keeps-user-words` | (1.1.1) the main session passes the user's words verbatim under `User's words (verbatim)`; a vague "stay fast" stays `:blocking`, never covered by orchestrator-invented criteria | guardrail |
 | `planner-uses-approved-spec` | planner plans only against the spec's AC-IDs, uses the documented `npm test`, asks multi/single | positive |
-| `planner-refuses-draft-spec` | `draft` spec → blocked, no plan | guardrail |
+| `planner-refuses-draft-spec` | `draft` spec → blocked, no plan; the main session never tells the planner the spec is approved | guardrail |
 | `planner-missing-test-command` | no documented test command → asks the user, invents nothing | guardrail |
 | `negative-unrelated-question` | a JS question → no SDD agent or skill | negative |
 | `negative-trivial-fix` | typo fix → edited directly, no spec/plan agents | negative |

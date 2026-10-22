@@ -2,6 +2,16 @@
 
 All notable changes to this plugin. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning: [SemVer](https://semver.org/).
 
+## [1.1.1] - 2026-10-22
+
+### Fixed
+- Handoff integrity: `spec-creator`'s description tells the main session to pass the user's request verbatim under `User's words (verbatim)` and keep its own additions under `Orchestrator notes (not from the user)`. New Hard rule 9: orchestrator-added criteria are proposals and never make a requirement covered. Found in a 1.1.0 run where the main session added speed criteria "from the user" and the rule 8 check was bypassed.
+- `implementation-planner`'s description: pass the spec path and the user's words only, never state the spec's Status. Found when the main session told the planner a draft spec was approved (the planner caught it).
+- `workflow-retro`: `prices.json` adds `claude-haiku-5-5`, so Haiku-run agents get a cost.
+
+### Added
+- Evals: `handoff-keeps-user-words` (3/3) and a `no-status-claim-in-handoff` grader on `planner-refuses-draft-spec` (3/3). `spec-*` regressions 9/9.
+
 ## [1.1.0] - 2026-10-22
 
 ### Added

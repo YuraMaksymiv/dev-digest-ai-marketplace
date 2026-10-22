@@ -36,16 +36,22 @@ case "$direction" in
   to-latest)
     run claude plugin marketplace update "$LATEST"
     for p in "${PLUGINS[@]}"; do run claude plugin disable "$p@$STABLE" --scope "$scope" || true; done
-    for p in "${PLUGINS[@]}"; do run claude plugin enable "$p@$LATEST" --scope "$scope" || true; done
+    # Enabling the consumer plugin also enables its dependencies.
+    run claude plugin enable "sdd-engineering@$LATEST" --scope "$scope"
     run claude plugin update "sdd-engineering@$LATEST" --scope "$scope"
     ;;
   *) echo "direction must be to-stable or to-latest" >&2; exit 2 ;;
 esac
 
 run claude plugin list --json
+channel="$( [ "$direction" = to-stable ] && echo "$STABLE" || echo "$LATEST" )"
 cat <<MSG
 
-Then, in Claude Code: /reload-plugins (or start a new session) and run the smoke eval:
-  claude plugin eval sdd-engineering@$( [ "$direction" = to-stable ] && echo "$STABLE" || echo "$LATEST" ) --tag smoke --scaffold --trust-plugin --allow-tools Write Edit --runs 1 --no-publish
-Check that 'claude plugin list --json' shows the expected version and no errorDetails.
+Next:
+  1. In Claude Code: /reload-plugins (or start a new session).
+  2. Check: claude plugin list --json — sdd-engineering@$channel shows the
+     expected version, the other channel's copies are disabled, no errorDetails.
+  3. Smoke-test that version from a marketplace checkout (installed copies
+     can't be evaluated directly because eval cases load dependencies by path):
+       scripts/smoke.sh sdd-engineering <version>
 MSG

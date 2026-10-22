@@ -99,11 +99,25 @@ Which runs:
 3. `claude plugin disable <p>@dev-digest-ai-marketplace --scope project` for all four
 4. `claude plugin install sdd-engineering@dev-digest-ai-marketplace-stable --scope project` (dependencies come from the stable channel)
 5. `claude plugin list --json` shows the pinned version
-6. `/reload-plugins`, then the smoke eval:
-   `claude plugin eval sdd-engineering@dev-digest-ai-marketplace-stable --tag smoke --scaffold --trust-plugin --allow-tools Write Edit --runs 1 --no-publish`
+6. `/reload-plugins` (or a new session), then confirm the session loads the
+   stable copy: `claude plugin list --json` shows the pinned version and the
+   latest-channel copies disabled.
+7. Smoke-test the pinned version from a marketplace checkout:
+   `scripts/smoke.sh sdd-engineering <version>` (runs the `smoke` evals from a
+   temporary worktree at the tag, threshold 0.66). Evaluating the installed
+   copy (`plugin eval sdd-engineering@…-stable`) does not work, because eval
+   cases load dependency plugins by relative path, which only exists in the
+   repository layout.
 
 Return to latest only after the fix is released and verified:
-`scripts/rollback.sh to-latest --scope project --execute`.
+`scripts/rollback.sh to-latest --scope project --execute`. It disables the
+stable copies and enables `sdd-engineering@dev-digest-ai-marketplace`, which
+re-enables its dependencies.
+
+Rehearsed 2026-10-22 in a consumer repository: 1.1.0 → stable 1.0.0 (new
+session loaded `…-stable/sdd-engineering/1.0.0`, cache had no 1.1.0 rule,
+smoke 3/3 from the tag) → back to latest 1.1.0. Specs, plans and the retro
+ledger in the consumer repository were untouched.
 
 ### Data and external state
 

@@ -1,7 +1,7 @@
 {
   "name": "sdd-engineering",
   "displayName": "SDD Engineering",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Spec-Driven Development workflow: spec-creator writes an EARS spec, implementation-planner turns it into an AC-traced plan, /run-plan drives implementer, test-runner, plan-verifier and an independent architecture gate; engineering-insights keeps per-module memory; workflow-retro analyses a finished run on request.",
   "author": {
     "name": "AI Engineering"
