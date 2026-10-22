@@ -106,6 +106,22 @@ the comparison only counts runs where the agent actually ran:
 | Pass rate / mean score | 85.0% / 0.950 | 92.5% / 0.958 |
 | Critical failures | 3 (routing) | 2 routing + 1 judge false-fail on `planner-refuses-draft-spec` (the planner correctly refused the draft spec) |
 
+### Cost per successful workflow
+
+Total cost of the runs divided by the runs that succeeded. Same 40 runs as above.
+
+| Success definition | Baseline | Experiment |
+|---|---|---|
+| Whole suite, all graders pass | $3.54 / 34 = **$0.104** | $3.80 / 37 = **$0.103** |
+| Workflow cases only (5 spec/plan cases, 25 runs), all graders pass | $2.96 / 19 = **$0.156** | $3.21 / 22 = **$0.146** |
+| Workflow cases, deterministic graders pass **and** an `sdd-engineering` agent was dispatched (LLM-judge noise and routing bypasses excluded) | $2.96 / 22 = **$0.134** | $3.21 / 22 = **$0.146** |
+
+The first two rows look ~6% better for the experiment, but the gain comes from LLM-judge
+pass counts (19 → 22), not from cheaper runs. On the stricter deterministic + routed gate the
+same 22 workflows succeed in both arms and the experiment is ~9% *more* expensive. Both
+differences sit inside the per-run noise band (baseline range $0.035–0.196), so this
+confirms the verdict below rather than changing it.
+
 **Verdict: rejected — no measurable saving.** Quality held, but cost and
 latency moved within the noise band. Expected size of the effect: ~6 KB of
 prompt is ~1.5k tokens of cache write per `spec-creator` call (≈ $0.006),

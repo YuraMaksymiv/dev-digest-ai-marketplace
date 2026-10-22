@@ -53,3 +53,14 @@ fixture, run:
 ```
 bash plugins/sdd-engineering/evals/_fixtures/sync.sh
 ```
+
+## Version comparison
+
+The 1.1.0 case `spec-every-requirement-has-ac`, run against the tagged plugin versions
+(`sonnet`, 3 runs each; for 1.0.0 the case was copied into a worktree at
+`sdd-engineering--v1.0.0`):
+
+| Plugin version | Pass | Score | Failing graders |
+|---|---|---|---|
+| 1.0.0 | 0/3 | 0.40 | `has-coverage-table`, `has-blocking-marker`, `vague-requirements-not-invented` (1.0.0 invents thresholds for "fast" / "user-friendly") |
+| 1.1.0 / 1.1.1 | 3/3 | 1.00 | — |
