@@ -62,7 +62,9 @@ sequenceDiagram
 1. **Spec.** Ask the main session to "write a spec for …". It runs
    `spec-creator` pass 1, asks you the blocking questions, dispatches
    research to `research-tools:researcher`, then resumes `spec-creator` for
-   pass 2. You set `Status: approved` yourself. Agents never approve.
+   pass 2. If your request already answers everything, it writes the spec
+   in a single pass. You set `Status: approved` yourself. Agents never
+   approve.
 2. **Plan.** Ask for an implementation plan for the approved spec.
    `implementation-planner` refuses `draft`/`clarified` specs. Once you
    accept the plan, save it next to the spec as `<slug>.plan.md`.

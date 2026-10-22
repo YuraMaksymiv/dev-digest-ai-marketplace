@@ -117,3 +117,26 @@ subagent's own file reads/writes dominate, not the system prompt. Better
 candidates for a next experiment: a cheaper model for pass 1 discovery, or
 passing the main session's already-read context to the agent as a path +
 abstract instead of re-reading the repository.
+
+## Follow-up — routing fix (separate change, after the experiment)
+
+**Change**: `spec-creator`'s description now says it MUST be used for every
+spec, including when the user already supplied all answers, and the agent
+gained a single-pass mode (no Discovery Report when nothing blocking is
+open). The authoring case gained a `dispatches-spec-creator` grader.
+
+| `sonnet` main session, 5 runs | Baseline | After fix |
+|---|---|---|
+| spec-authoring: `spec-creator` dispatched | 2/5 | 5/5 |
+| spec-discovery: still asks questions first (pass 1) | 5/5 | 5/5 |
+| spec-authoring: median cost | $0.100 (cheap runs were the bypasses) | $0.177 |
+
+The cost rise is the price of actually running the agent. The bypass runs
+were cheaper because they skipped the template, EARS rules and self-check.
+
+**Grader change**: the single LLM rubric on the 9 KB spec file was noisy.
+Specs of the same quality passed and failed (3/5 false fails, confirmed by
+reading the files). It was replaced by deterministic regex graders (an EARS
+unwanted-behaviour row, Status `draft`/`clarified`, no source-code block)
+plus a narrower LLM check on requirement coverage only. Result: 5/5 pass,
+score 1.0, $0.78 for 5 runs.

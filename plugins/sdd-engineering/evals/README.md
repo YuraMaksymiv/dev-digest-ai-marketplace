@@ -7,7 +7,7 @@ that the workflow stays quiet when it isn't needed.
 | Case | Checks | Kind |
 |---|---|---|
 | `spec-discovery-asks-questions` | vague request → `spec-creator` pass 1 asks blocking questions, writes nothing | positive |
-| `spec-authoring-ears-no-impl` | answers supplied → one spec in `specs/`, EARS `AC-n`, no implementation details | positive |
+| `spec-authoring-ears-no-impl` | answers supplied → `spec-creator` is still dispatched (single pass), writes `specs/due-dates.md` with an EARS unwanted-behaviour row, draft/clarified status, no source code, all six facts covered | positive |
 | `planner-uses-approved-spec` | planner plans only against the spec's AC-IDs, uses the documented `npm test`, asks multi/single | positive |
 | `planner-refuses-draft-spec` | `draft` spec → blocked, no plan | guardrail |
 | `planner-missing-test-command` | no documented test command → asks the user, invents nothing | guardrail |

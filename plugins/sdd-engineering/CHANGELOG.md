@@ -10,3 +10,4 @@ All notable changes to this plugin. Format: [Keep a Changelog](https://keepachan
 - Explicit inputs instead of repository-layout assumptions: spec folder resolution order, module discovery, documented-test-command lookup with a "no test command" path.
 - Namespaced dependencies: `research-tools:researcher`, `architecture-review:architecture-reviewer`, `engineering-paved-path:*` skills.
 - Behavior evals for the "spec + plan for a small feature" scenario and negative (non-activation) cases.
+- `spec-creator` single-pass mode: when the request already answers every blocking question it writes the spec in one run; its description now requires it for every spec so the main session doesn't write specs itself (baseline: 3/5 runs bypassed it). Eval grader `dispatches-spec-creator` on the authoring case.
